@@ -1,10 +1,11 @@
 {
-  "name": "init-ts-module",
+  "name": "entitizer.api",
   "version": "0.0.1",
-  "description": "Init TypeScript npm module",
-  "main": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "description": "Private Entitizer API",
+  "main": "./lib/app.js",
+  "private": true,
   "scripts": {
+    "start": "tsc && node ./lib/app.js",
     "pretest": "npm run tsc",
     "test": "mocha",
     "tsc": "tsc",
@@ -18,21 +19,32 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mitica/init-ts-module.git"
+    "url": "git+https://Mitea@bitbucket.org/entitizer/api-js.git"
   },
   "keywords": [
-    "ts",
-    "init-module"
+    "entitizer",
+    "api"
   ],
   "author": "Dumitru Cantea",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Mitica/init-ts-module/issues"
+    "url": "https://Mitea@bitbucket.org/entitizer/api-js/issues"
   },
-  "homepage": "https://github.com/Mitica/init-ts-module#readme",
+  "homepage": "https://Mitea@bitbucket.org/entitizer/api-js#readme",
   "devDependencies": {
-    "@types/node": "^7.0.5",
+    "@types/express": "^4.0.35",
+    "@types/node": "^7.x.x",
     "mocha": "^3.2.0",
-    "typescript": "^2.1.5"
+    "typescript": "^2.2.2"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "dotenv": "^4.0.0",
+    "entitizer.models": "^0.1.2",
+    "express": "^4.15.2",
+    "express-graphql": "^0.6.4",
+    "graphql": "^0.9.2",
+    "graphql-type-json": "^0.1.4",
+    "ournet.logger": "^0.1.0"
   }
 }

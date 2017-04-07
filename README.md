@@ -1,3 +1,3 @@
-# init-ts-module
+# entitizer.api
 
-Main files of a TypeScript npm module.
+Private Entitizer API
