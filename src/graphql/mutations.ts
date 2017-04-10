@@ -1,9 +1,9 @@
 
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt, GraphQLList } from 'graphql';
-
 import * as Data from '../data';
 import { logger } from '../logger';
 import { EntityType } from './types';
+import { EntityCreateInput } from './inputs';
 
 const GraphQLJsonType = require('graphql-type-json');
 const EntityTypeList = new GraphQLList(EntityType);
@@ -24,49 +24,28 @@ export const mutations = {
     createEntity: {
         type: EntityType,
         args: {
-            name: {
-                type: new GraphQLNonNull(GraphQLString)
-            },
-            abbr: {
-                type: GraphQLString
-            },
-            cc2: {
-                type: GraphQLString
-            },
-            lang: {
-                type: new GraphQLNonNull(GraphQLString)
-            },
-            wikiId: {
-                type: new GraphQLNonNull(GraphQLString)
-            },
-            wikiTitle: {
-                type: GraphQLString
-            },
-            aliases: {
-                type: new GraphQLList(GraphQLString)
-            },
-            description: {
-                type: GraphQLString
-            },
-            extract: {
-                type: GraphQLString
-            },
-            enWikiTitle: {
-                type: GraphQLString
-            },
-            type: {
-                type: new GraphQLNonNull(GraphQLString)
-            },
-            rank: {
-                type: new GraphQLNonNull(GraphQLInt)
-            },
-            data: {
-                type: GraphQLJsonType
+            entity: {
+                type: EntityCreateInput
             }
         },
         resolve(source, args) {
             logger.info('createEntity', args);
-            return Data.createEntity(args);
+            return Data.createEntity(args.entity);
+        }
+    },
+    addEntityName: {
+        type: new GraphQLList(GraphQLString),
+        args: {
+            entityId: {
+                type: new GraphQLNonNull(GraphQLString)
+            },
+            name: {
+                type: new GraphQLNonNull(GraphQLString)
+            }
+        },
+        resolve(source, args) {
+            logger.info('addEntityName', args);
+            return Data.addEntityName(args.entityId, args.name);
         }
     }
 }
