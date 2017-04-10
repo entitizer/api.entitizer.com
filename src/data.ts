@@ -6,9 +6,9 @@ import { Entity, PlainObject } from 'entitizer.models';
 
 const dynamoStorage = new keyring.DynamoStorage([process.env.ENTITIZER_TABLE_PREFIX, 'NamesKeyring'].join('_'));
 const namekeyring = new keyring.NameKeyring(dynamoStorage);
-const entityService = new storage.EntityService();
-const entityNamesService = new storage.EntityNamesService();
-const manager = new EntityManager(namekeyring, entityService, entityNamesService);
+const entityStorage = new storage.EntityStorage();
+const entityNamesStorage = new storage.EntityNamesStorage();
+const manager = new EntityManager(namekeyring, entityStorage, entityNamesStorage);
 
 export function getEntityById(id: string, params?: PlainObject) {
     return manager.getEntity(id, params);
@@ -32,6 +32,10 @@ export function setEntityNames(entityId: string, names: string[]) {
 
 export function addEntityName(entityId: string, name: string) {
     return manager.addEntityName(entityId, name);
+}
+
+export function addEntityNames(entityId: string, names: string[]) {
+    return manager.addEntityNames(entityId, names);
 }
 
 export function deleteEntity(id: string, params?: PlainObject) {

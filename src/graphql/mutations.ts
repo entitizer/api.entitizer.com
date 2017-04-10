@@ -1,5 +1,5 @@
 
-import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt, GraphQLList } from 'graphql';
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt, GraphQLList, GraphQLBoolean } from 'graphql';
 import * as Data from '../data';
 import { logger } from '../logger';
 import { EntityType } from './types';
@@ -29,12 +29,15 @@ export const mutations = {
             }
         },
         resolve(source, args) {
-            logger.info('createEntity', args);
-            return Data.createEntity(args.entity);
+            // logger.info('createEntity', args);
+            return Data.createEntity(args.entity).then(entity => {
+                console.log('created entity', entity);
+                return entity;
+            }).catch(e => console.log(e));
         }
     },
     addEntityName: {
-        type: new GraphQLList(GraphQLString),
+        type: GraphQLBoolean,
         args: {
             entityId: {
                 type: new GraphQLNonNull(GraphQLString)
@@ -45,7 +48,24 @@ export const mutations = {
         },
         resolve(source, args) {
             logger.info('addEntityName', args);
-            return Data.addEntityName(args.entityId, args.name);
+            return Data.addEntityName(args.entityId, args.name).then(() => true);
+        }
+    },
+    addEntityNames: {
+        type: GraphQLBoolean,
+        args: {
+            entityId: {
+                type: new GraphQLNonNull(GraphQLString)
+            },
+            names: {
+                type: new GraphQLNonNull(new GraphQLList(GraphQLString))
+            }
+        },
+        resolve(source, args) {
+            logger.info('addEntityNames', args);
+            return Data.addEntityNames(args.entityId, args.names)
+                .then(() => true)
+                .catch(e => console.log(e));
         }
     }
 }

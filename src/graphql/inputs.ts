@@ -24,6 +24,15 @@ export const EntityCreateInput = new GraphQLInputObjectType({
         wikiTitle: {
             type: GraphQLString
         },
+        wikiPageId: {
+            type: GraphQLInt
+        },
+        wikiImage: {
+            type: GraphQLString
+        },
+        types: {
+            type: new GraphQLList(GraphQLString)
+        },
         aliases: {
             type: new GraphQLList(GraphQLString)
         },
