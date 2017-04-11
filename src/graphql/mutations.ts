@@ -36,23 +36,8 @@ export const mutations = {
             }).catch(e => console.log(e));
         }
     },
-    addEntityName: {
-        type: GraphQLBoolean,
-        args: {
-            entityId: {
-                type: new GraphQLNonNull(GraphQLString)
-            },
-            name: {
-                type: new GraphQLNonNull(GraphQLString)
-            }
-        },
-        resolve(source, args) {
-            logger.info('addEntityName', args);
-            return Data.addEntityName(args.entityId, args.name).then(() => true);
-        }
-    },
     addEntityNames: {
-        type: GraphQLBoolean,
+        type: GraphQLInt,
         args: {
             entityId: {
                 type: new GraphQLNonNull(GraphQLString)
@@ -63,9 +48,7 @@ export const mutations = {
         },
         resolve(source, args) {
             logger.info('addEntityNames', args);
-            return Data.addEntityNames(args.entityId, args.names)
-                .then(() => true)
-                .catch(e => console.log(e));
+            return Data.addEntityNames(args.entityId, args.names).catch(e => console.log(e));
         }
     }
 }

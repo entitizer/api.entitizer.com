@@ -30,10 +30,6 @@ export function setEntityNames(entityId: string, names: string[]) {
     return manager.setEntityNames(entityId, names);
 }
 
-export function addEntityName(entityId: string, name: string) {
-    return manager.addEntityName(entityId, name);
-}
-
 export function addEntityNames(entityId: string, names: string[]) {
     return manager.addEntityNames(entityId, names);
 }
