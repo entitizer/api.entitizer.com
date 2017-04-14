@@ -31,9 +31,9 @@ export const mutations = {
         resolve(source, args) {
             // logger.info('createEntity', args);
             return Data.createEntity(args.entity).then(entity => {
-                console.log('created entity', entity);
+                // console.log('created entity', entity);
                 return entity;
-            }).catch(e => console.log(e));
+            });
         }
     },
     addEntityNames: {
@@ -47,7 +47,7 @@ export const mutations = {
             }
         },
         resolve(source, args) {
-            logger.info('addEntityNames', args);
+            // logger.info('addEntityNames', args);
             return Data.addEntityNames(args.entityId, args.names).catch(e => console.log(e));
         }
     }
