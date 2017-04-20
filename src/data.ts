@@ -47,11 +47,21 @@ export function deleteEntity(id: string, params?: PlainObject) {
     return manager.deleteEntity(id, params);
 }
 
-function init() {
+export function clearDB() {
     return Promise.props({
-        // p1: dynamoStorage.createTable(),
-        p2: storage.createTables()
+        p1: client.flushdbAsync(),
+        p2: storage.deleteTables('iam-sure').catch()
     });
 }
 
-init().catch((e) => logger.error(e));
+export function createDB() {
+    return Promise.props({
+        p2: storage.createTables().catch()
+    });
+}
+
+export function closeDB() {
+    return Promise.props({
+        p1: client.quitAsync()
+    });
+}
