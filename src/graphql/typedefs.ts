@@ -35,6 +35,11 @@ type UniqueName {
     uniqueName: String
     createdAt: Int
 }
+
+type KeyIds {
+    key: String!
+    ids: [String]!
+}
 `;
 
 const inputs = `
@@ -74,7 +79,7 @@ type Query {
   entityById(id: ID!, redirect: Boolean): Entity
   entitiesByIds(ids: [ID]!, redirect: Boolean): [Entity]
   uniqueNamesByEntityId(entityId: String!): [UniqueName]
-  entityIdsByKeys(keys: [String]!): [String]
+  entityIdsByKeys(keys: [String]!): JSON
 }
 
 type Mutation {
