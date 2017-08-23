@@ -35,11 +35,6 @@ type UniqueName {
     uniqueName: String
     createdAt: Int
 }
-
-type KeyIds {
-    key: String!
-    ids: [String]!
-}
 `;
 
 const inputs = `

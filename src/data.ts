@@ -8,7 +8,6 @@ export const uniqueNameRepository = new DataUniqueNameRepository(new MemoryUniqu
 
 export const usecases = {
     entityCreate: new EntityCreate(entityRepository),
-    entityGetById: new EntityGetById(entityRepository),
     uniqueNameCreate: new UniqueNameCreate(uniqueNameRepository)
 }
 
