@@ -35,6 +35,23 @@ type UniqueName {
     uniqueName: String
     createdAt: Int
 }
+
+type Concept {
+    index: Int!
+    value: String!
+    name: String
+    abbr: String
+}
+
+type EntitizeEntityData {
+    entity: Entity!
+    concepts: [Concept]!
+}
+
+type EntitizeData {
+    concepts: [Concept]
+    entities: [EntitizeEntityData]
+}
 `;
 
 const inputs = `
@@ -66,6 +83,12 @@ input UniqueNameInput {
     uniqueName: String
     createdAt: Int
 }
+
+input ContextInput {
+    lang: String!
+    text: String!
+    country: String
+}
 `;
 
 const queries = `
@@ -75,6 +98,7 @@ type Query {
   entitiesByIds(ids: [ID]!, redirect: Boolean): [Entity]
   uniqueNamesByEntityId(entityId: String!): [UniqueName]
   entityIdsByKeys(keys: [String]!): JSON
+  entitize(context: ContextInput!): EntitizeData
 }
 
 type Mutation {
