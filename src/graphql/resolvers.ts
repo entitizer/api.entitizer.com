@@ -9,7 +9,10 @@ export const resolvers = {
         entitiesByIds: (_: any, args: { ids: string[] }) => entityRepository.getByIds(args.ids).toPromise(),
         entityIdsByKeys: (_: any, args: { keys: string[] }) => uniqueNameRepository.getEntityIdsByKeys(args.keys).toPromise(),
         uniqueNamesByEntityId: (_: any, args: { entityId: string }) => uniqueNameRepository.getByEntityId(args.entityId).toPromise(),
-        entitize: (_: any, args: { context: Context }) => entitizer.entitize(args.context)
+        entitize: (_: any, args: { context: Context }) => {
+            logger.info('context', args.context);
+            return entitizer.entitize(args.context)
+        }
     },
     Mutation: {
         entityCreate: (_: any, args: { data: any }) => usecases.entityCreate.execute(args.data).toPromise(),
