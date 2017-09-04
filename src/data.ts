@@ -1,20 +1,24 @@
 
 import { logger } from './logger';
-import { EntityCreate, EntityGetById, UniqueNameCreate } from 'entitizer.entities';
-import { DataEntityRepository, DataUniqueNameRepository, MemoryEntityStore, MemoryUniqueNameStore, EntityDataMapper, UniqueNameDataMapper } from 'entitizer.data';
+import { EntityCreate, UniqueNameCreate } from 'entitizer.entities';
+import {
+    DataEntityRepository,
+    DataUniqueNameRepository,
+    MemoryEntityStore,
+    MemoryUniqueNameStore,
+    EntityDataMapper,
+    UniqueNameDataMapper,
+    DynamoEntityStore,
+    DynamoUniqueNameStore,
+    dynamoConfig,
+    dynamoCreateTables,
+    // RedisKeyringStore,
+    DynamoKeyringStore
+} from 'entitizer.data';
+
 import { Entitizer } from 'entitizer';
 
 export { Context } from 'entitizer';
-
-export const entityRepository = new DataEntityRepository(new MemoryEntityStore(), new EntityDataMapper());
-export const uniqueNameRepository = new DataUniqueNameRepository(new MemoryUniqueNameStore(), new UniqueNameDataMapper());
-
-export const entitizer = new Entitizer(entityRepository, uniqueNameRepository);
-
-export const usecases = {
-    entityCreate: new EntityCreate(entityRepository),
-    uniqueNameCreate: new UniqueNameCreate(uniqueNameRepository)
-}
 
 // const redis = require('redis');
 
@@ -24,4 +28,15 @@ export const usecases = {
 //     password: process.env.REDIS_PASS
 // });
 
+export const entityRepository = new DataEntityRepository(new DynamoEntityStore(), new EntityDataMapper());
+export const uniqueNameRepository = new DataUniqueNameRepository(new DynamoUniqueNameStore(new DynamoKeyringStore()), new UniqueNameDataMapper());
 
+export const entitizer = new Entitizer(entityRepository, uniqueNameRepository);
+
+export const usecases = {
+    entityCreate: new EntityCreate(entityRepository),
+    uniqueNameCreate: new UniqueNameCreate(uniqueNameRepository)
+}
+
+dynamoConfig({ region: 'dynamodb-local-frankfurt', endpoint: 'http://localhost:8000', accessKeyId: 'id', secretAccessKey: 'key' });
+dynamoCreateTables().catch(e => console.error(e));
