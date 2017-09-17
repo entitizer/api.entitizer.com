@@ -104,6 +104,7 @@ type Query {
 type Mutation {
   entityCreate(data: EntityInput!): Entity
   uniqueNameCreate(data: UniqueNameInput!): UniqueName
+  entityImport(id: String!, lang: String!): Entity
 }
 `
 
