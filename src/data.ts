@@ -38,5 +38,7 @@ export const usecases = {
     uniqueNameCreate: new UniqueNameCreate(uniqueNameRepository)
 }
 
-// dynamoConfig({ region: 'dynamodb-local-frankfurt', endpoint: 'http://localhost:8000', accessKeyId: 'id', secretAccessKey: 'key' });
+if (process.env.LOCAL_DB) {
+    dynamoConfig({ region: 'dynamodb-local-frankfurt', endpoint: 'http://localhost:8000', accessKeyId: 'id', secretAccessKey: 'key' });
+}
 dynamoCreateTables().catch(e => console.error(e));
