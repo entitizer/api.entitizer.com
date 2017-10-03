@@ -13,7 +13,7 @@ export type EntityInfo = {
 
 export function exploreEntity(id: string, lang: string) {
     return new Promise<EntityInfo>((resolve, reject) => {
-        getEntities({ ids: id, categories: true, claims: 'none', extract: 3, language: lang, redirects: true, types: true })
+        getEntities({ ids: id, categories: false, claims: 'none', extract: 3, language: lang, redirects: true, types: true })
             .then((entities: WikiEntity[]) => {
                 if (!entities || !entities.length) {
                     return Promise.reject(new Error(`not found entity=${id}`));

@@ -19,8 +19,8 @@ const server = express();
 server.use(cors());
 
 if (isProduction) {
-    server.use(checkJwt);
-    server.use(checkRole);
+    // server.use(checkJwt);
+    // server.use(checkRole);
 }
 
 server.use('/graphql', graphqlHTTP({

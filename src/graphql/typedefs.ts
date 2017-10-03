@@ -25,6 +25,7 @@ type Entity {
     createdAt: Int
     updatedAt: Int
     redirectId: String
+    categories: [String]
 }
 # entity unique name
 type UniqueName {
@@ -74,6 +75,7 @@ input EntityInput {
     createdAt: Int
     updatedAt: Int
     redirectId: String
+    categories: [String]
 }
 
 input UniqueNameInput {
