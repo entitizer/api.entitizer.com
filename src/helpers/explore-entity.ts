@@ -54,12 +54,12 @@ function createEntityNames(entity: Entity, redirects?: string[]): string[] {
         names.push(entity.wikiTitle);
     }
 
-    if (entity.aliases) {
-        names = names.concat(entity.aliases);
-    }
-
     if (redirects && redirects.length) {
         names = names.concat(redirects);
+    }
+
+    if (entity.aliases && entity.aliases.length) {
+        names = names.concat(entity.aliases);
     }
 
     names = uniq(names);
