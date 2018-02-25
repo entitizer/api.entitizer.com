@@ -3,6 +3,9 @@ import { Entity, EntityHelper } from 'entitizer.entities';
 import { usecases } from '../data';
 
 export function importEntity(entity: Entity, names?: string[]) {
+    if (entity.type === 'C') {
+        return Promise.reject(new Error(`Invalid entity type==C`))
+    }
     return usecases.entityCreate.execute(entity).toPromise()
         .catch(e => {
             if (e.message === 'The conditional request failed') {
