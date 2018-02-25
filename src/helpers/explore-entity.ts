@@ -58,9 +58,9 @@ function createEntityNames(entity: Entity, redirects?: string[]): string[] {
         names = names.concat(redirects);
     }
 
-    if (entity.aliases && entity.aliases.length) {
-        names = names.concat(entity.aliases);
-    }
+    // if (entity.aliases && entity.aliases.length) {
+    //     names = names.concat(entity.aliases);
+    // }
 
     names = uniq(names);
 
