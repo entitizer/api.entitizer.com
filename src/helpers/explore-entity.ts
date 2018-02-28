@@ -54,6 +54,24 @@ function createEntityNames(entity: Entity, redirects?: string[]): string[] {
         names.push(entity.wikiTitle);
     }
 
+    let partialName = entity.name.endsWith(')') && entity.name ||
+        entity.wikiTitle && entity.wikiTitle.endsWith(')') && entity.wikiTitle
+    if (partialName) {
+        const i = partialName.lastIndexOf('(');
+        if (i) {
+            names.push(partialName.substr(0, i).trim())
+        }
+    }
+
+    // partialName = entity.name.indexOf(',') && entity.name ||
+    //     entity.wikiTitle && entity.wikiTitle.indexOf(',') && entity.wikiTitle
+    // if (partialName) {
+    //     const i = partialName.indexOf(',');
+    //     if (i) {
+    //         names.push(partialName.substr(0, i).trim())
+    //     }
+    // }
+
     if (redirects && redirects.length) {
         names = names.concat(redirects);
     }
